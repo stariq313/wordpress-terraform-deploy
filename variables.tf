@@ -13,3 +13,13 @@ variable "key_name" {
   description = "SSH key name"
   type        = string
 }
+
+variable "ssh_cidr" {
+  description = "CIDR block allowed for SSH access"
+  type        = string
+}
+
+variable "http_cidr" {
+  description = "CIDR block allowed for HTTP access"
+  type        = string
+}

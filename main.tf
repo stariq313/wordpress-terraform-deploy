@@ -3,10 +3,10 @@ module "wordpress_server" {
   instance_type = var.instance_type
   key_name      = var.key_name
   user_data     = file("${path.module}/cloud-init.sh")
-
-  ssh_cidr  = "86.26.49.37/32"   
-  http_cidr = "0.0.0.0/0"
+  ssh_cidr      = var.ssh_cidr
+  http_cidr     = var.http_cidr
 }
+
 
 
 output "wordpress_public_ip" {

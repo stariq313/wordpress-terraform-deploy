@@ -10,3 +10,5 @@ terraform.tfstate.backup
 *.tar.gz
 *.bak
 cloud-init-output.log
+terraform.tfvars
+
