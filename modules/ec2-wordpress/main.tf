@@ -33,18 +33,19 @@ resource "aws_security_group" "wordpress_sg" {
   vpc_id      = null  # We'll let AWS figure this out automatically
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from anywhere
-  }
+  from_port   = var.http_port
+  to_port     = var.http_port
+  protocol    = "tcp"
+  cidr_blocks = [var.http_cidr]
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["86.26.49.37/32"]  # Allow SSH (only my IP allowed)
-  }
+ingress {
+  from_port   = var.ssh_port
+  to_port     = var.ssh_port
+  protocol    = "tcp"
+  cidr_blocks = [var.ssh_cidr]
+}
+
 
   egress {
     from_port   = 0

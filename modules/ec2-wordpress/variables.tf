@@ -14,3 +14,25 @@ variable "user_data" {
   type        = string
 }
 
+variable "http_port" {
+  description = "Port for HTTP access"
+  type        = number
+  default     = 80
+}
+
+variable "ssh_port" {
+  description = "Port for SSH access"
+  type        = number
+  default     = 22
+}
+
+variable "ssh_cidr" {
+  description = "Allowed CIDR block for SSH"
+  type        = string
+}
+
+variable "http_cidr" {
+  description = "Allowed CIDR block for HTTP"
+  type        = string
+  default     = "0.0.0.0/0"
+}
