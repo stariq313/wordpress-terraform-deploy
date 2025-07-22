@@ -1,5 +1,0 @@
-ami_id        = "ami-0841b1152f02fa85e"
-key_name      = "wordpress-key"
-instance_type = "t2.micro"
-ssh_cidr  = "86.26.49.37/32"
-http_cidr = "0.0.0.0/0"
