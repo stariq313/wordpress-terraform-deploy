@@ -1,68 +1,91 @@
-# 🛠️ WordPress EC2 Deployment with Terraform (Modular Approach)
+# 🛠️ WordPress Deployment with Terraform (AWS EC2)
 
-This project automates the deployment of a WordPress-ready EC2 instance on AWS using Terraform built using **modules**, **cloud-init**, and structured Terraform best practices.
-
----
-
-## 🚀 What It Does
-
-- Provisions an EC2 instance using a specified Amazon Linux AMI
-- Installs Apache, PHP, MariaDB, and WordPress via `cloud-init.sh`
-- Opens port `80` (HTTP) and `22` (SSH) using a Security Group
-- Outputs the **public IP** of the deployed WordPress server
+This project demonstrates how to deploy a single-instance WordPress site on AWS using **Terraform**, with EC2, `cloud-init`, and modular infrastructure as code (IaC) best practices.
 
 ---
 
-## 📁 Project Structure
+## 📦 Features
 
-wordpress-terraform/
-├── main.tf # Root module - wires everything together
-├── cloud-init.sh # Bootstraps WordPress on EC2
-├── .gitignore # Ignores Terraform state files, etc.
-├── modules/
-│ └── ec2-wordpress/
-│ ├── main.tf
-│ ├── variables.tf
-│ └── outputs.tf
+- 📁 Modular Terraform setup for EC2 & Security Group
+- 🔐 SSH access restricted to a specific IP (least privilege)
+- ☁️ cloud-init to install and configure WordPress automatically
+- 💡 Outputs public IP for easy access
+- 🧹 Clean `.gitignore` and readable file structure
+- ✅ Dynamic AMI retrieval (no hardcoded AMI ID)
 
+---
 
-### ⚙️ How to Use
+## 🧱 Folder Structure
 
-1. **Clone the repo**
+```
+.
+├── main.tf                  # Root config: loads EC2 module
+├── variables.tf             # Input variables (minimal here)
+├── provider.tf              # AWS provider block
+├── backend.tf               # Remote backend placeholder
+├── outputs.tf               # Output public IP
+├── cloud-init.sh            # Shell script to install WordPress
+└── modules/
+    └── ec2-wordpress/
+        ├── main.tf          # EC2 + SG resource definitions
+        ├── variables.tf     # Inputs for the module
+        └── outputs.tf       # Outputs from module
+```
 
+---
 
+## 🚀 Getting Started
+
+> Prerequisites:
+> - AWS account
+> - IAM credentials set via environment variables
+> - Key pair created in AWS EC2
+> - Terraform installed locally
+
+### 1. Clone the Repo
+```bash
 git clone https://github.com/stariq313/wordpress-terraform-deploy.git
 cd wordpress-terraform-deploy
+```
 
-2. **Initialize Terraform**
+### 2. Initialize Terraform
+```bash
+terraform init
+```
 
-`terraform init`
-
-3. **Review the plan**
-
-`terraform plan`
-
-4. **Apply the changes**
-
+### 3. Review & Apply Infrastructure
+```bash
+terraform plan
 terraform apply
+```
 
-5. **Get the Public IP**
+After deployment, you'll see an output like:
+```
+wordpress_public_ip = "13.41.xx.xx"
+```
 
-The output will show the EC2 public IP. Paste it into your browser (use http://) to access WordPress setup.
+Paste that IP into your browser to launch WordPress 🚀
 
-6. **Destroy when done**
+---
 
-`terraform destroy`
+## 🔐 Security Notes
 
-**Lessons Practiced TLDR**
-#Terraform modules#
+- SSH (`port 22`) is locked to your IP only.
+- HTTP (`port 80`) is open for WordPress setup.
+- No hardcoded secrets or credentials committed.
 
-#Cloud-init EC2 bootstrapping#
+---
 
-#Security Groups#
+## 📌 To-Do / Improvements
 
-#Outputs and variables#
+- [ ] Move database to RDS
+- [ ] Add ALB for high availability
+- [ ] Deploy to custom VPC
+- [ ] Use S3 + DynamoDB for remote Terraform state
 
-#GitHub integration with .gitignore#
+---
 
+## 🧑‍💻 Author
 
+**Saqib Tariq**  
+[GitHub Profile](https://github.com/stariq313)
