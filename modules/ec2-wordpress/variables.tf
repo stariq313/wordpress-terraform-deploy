@@ -1,8 +1,3 @@
-variable "ami" {
-  description = "AMI ID to use for the EC2 instance"
-  type        = string
-}
-
 variable "instance_type" {
   description = "Instance type"
   type        = string
